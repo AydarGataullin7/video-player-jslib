@@ -1,94 +1,150 @@
-<!-- Плеер будет создан с задержкой, после того как загрузятся все ресурсы на странице. Для этого используется событие `DOMContentLoaded`. Благодаря этой особенности можно вызывать функцию `createPlayer` раньше, чем загрузятся все необходимые библиотеки: jQuery и Playable.
- -->
+# Видеоплеер
 
-# Библиотека для создания видеоплеера
+Готовый видеоплеер с кастомными элементами управления
 
-Минимальный набор инструментов, который нужен для создания своего видеоплеера. Все элементы можно кастомизировать на свой вкус и цвет.
+## Особенности
 
-![max example](screenshots/max.gif)
-
-Построен на базе библиотеки [Playable](https://wix.github.io/playable/).
-
-## Примеры
-
-Два рабочих примера:
-
-- Страница с минимальными настройками — [example_min.html](./example_min.html)
-- Страница с максимальными настройками — [example_max.html](./example_max.html)
+- Автоматическое создание плеера после загрузки всех ресурсов
+- Кастомизируемые элементы управления (кнопки, панель управления)
+- Поддержка полноэкранного режима
+- Управление громкостью и воспроизведением
 
 ## Как подключить
 
-JS код поставляется в виде одного файла `player.js`, который нужно скачать из этого репозитория. Для работы он требует двух библиотек - [jQuery](https://jquery.com/) и [Playable](https://wix.github.io/playable/). Пример подключения в браузере:
+### 1. Подключение необходимых библиотек
+
+Добавьте в ваш HTML-файл следующие скрипты и стили:
 
 ```html
+<!-- Font Awesome для иконок -->
+<link rel="stylesheet" href="font-awesome.min.css" />
+
+<!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<!-- Playable библиотека -->
 <script src="https://unpkg.com/playable@2.10.3/dist/statics/playable.bundle.min.js"></script>
+
+<!-- Скрипт плеера -->
 <script src="player.js"></script>
 ```
 
-Для работы библиотека требует HTML разметки. Вот полный пример с минимальным количеством настроек:
+### 2. HTML разметка
+
+Создайте контейнер для плеера с необходимой структурой:
 
 ```html
-<div id="player" style="width: 800px; height: 600px;">
-    <div class="js-video-container" style="width: 100%; height: 100%"></div>
+<div id="player" class="player">
+  <!-- Контейнер для видео -->
+  <div class="js-video-container video-container"></div>
+
+  <!-- Панель управления -->
+  <div class="controls-panel">
+    <button class="js-play-button buttons">
+      <i class="fa fa-play button" aria-hidden="true"></i>
+    </button>
+    <button class="js-pause-button buttons" hidden>
+      <i class="fa fa-pause button" aria-hidden="true"></i>
+    </button>
+    <button class="js-volume-button buttons">
+      <i class="fa fa-volume-up" aria-hidden="true"></i>
+    </button>
+    <button class="js-mute-button buttons" hidden>
+      <i class="fa fa-volume-off" aria-hidden="true"></i>
+    </button>
+    <div style="flex-grow: 1"></div>
+    <button class="js-fullscreen-button buttons">
+      <i class="fa fa-expand" aria-hidden="true"></i>
+    </button>
+  </div>
 </div>
+```
 
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://unpkg.com/playable@2.10.3/dist/statics/playable.bundle.min.js"></script>
-<script src="player.js"></script>
+### 3. Инициализация плеера
 
+Добавьте скрипт инициализации после разметки:
+
+```html
 <script type="text/javascript">
-  createPlayer({elementId: 'player'});
+  createPlayer({ elementId: "player" });
 </script>
 ```
 
-Этот код добавит на страницу плеер, который играет видео по [этой ссылке](https://dvmn.org/media/filer_public/78/db/78db3456-3fd3-4504-9ed9-d2d1fd843c0b/highest_peak.mp4).
+## Настройки
 
-Если хочется выбрать другое видео, с помощью аргумента `src` плееру можно указать какое видео проигрывать, ссылки обязаны заканчиваться расширением файла:
+Размеры плеера
+Размеры задаются через CSS класс .player:
 
-```html
-<script type="text/javascript">
-  createPlayer({
-    elementId: 'player',
-    src: 'https://dvmn.org/media/filer_public/d0/16/d016d9b8-4180-4bb9-ad83-0241f61627b8/samsung_demo_-_alive_in_color.mp4'
+```css
+.player {
+  width: 800px;
+  height: 600px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+}
+```
+
+## Изменение видео
+
+По умолчанию используется тестовое видео. Чтобы изменить видео, укажите параметр src:
+
+```javascript
+createPlayer({
+  elementId: "player",
+  src: "https://example.com/your-video.mp4",
 });
-</script>
 ```
 
-**Скрипт `player.js` нужно подключать строго после `<div>` с указанным elementId**
+## Элементы управления
 
-## Как подключить кнопки
+### Обязательные элементы
 
-**Внутри элемента с указанным `elementId` плеер ищет теги с классами:**
+`js-video-container` — контейнер для видео. Обязателен для работы плеера.
 
-`js-video-container` — тег, внутри которого будет размещено само видео. Такой элемент обязательно должен присутствовать в вёрстке, без него не заведётся.
+### Кнопки управления
 
-`js-play-button` — кнопка запуска видео-плеера. Автоматически скрывается в момент остановки видео — тег получает атрибут [hidden](https://developer.mozilla.org/ru/docs/Web/HTML/%D0%9E%D0%B1%D1%89%D0%B8%D0%B5_%D0%B0%D1%82%D1%80%D0%B8%D0%B1%D1%83%D1%82%D1%8B/hidden).
+Все кнопки автоматически управляют своим состоянием (скрываются/показываются):
 
-`js-pause-button` — кнопка паузы видео-плеера. Автоматически скрывается в момент инициализации плеера — тег получает атрибут [hidden](https://developer.mozilla.org/ru/docs/Web/HTML/%D0%9E%D0%B1%D1%89%D0%B8%D0%B5_%D0%B0%D1%82%D1%80%D0%B8%D0%B1%D1%83%D1%82%D1%8B/hidden). Кнопка появляется снова после начала воспроизведения видео. Чтобы кнопка не мерцала в момент загрузки страницы можно её вручную скрыть, добавив атрибут `hidden`:
+### 1. Воспроизведение/Пауза
 
-```html
-<button class="js-pause-button" hidden>Pause</button>
+`js-play-button` — кнопка воспроизведения (скрывается при активном воспроизведении)
+
+`js-pause-button` — кнопка паузы (скрывается при остановке)
+
+### 2. Управление звуком
+
+`js-volume-button` — включение звука
+
+`js-mute-button` — отключение звука
+
+### 3. Полноэкранный режим
+
+`js-fullscreen-button` — переход в полноэкранный режим
+
+## Стилизация
+
+Кнопки имеют класс `buttons` с базовыми стилями:
+
+```css
+.buttons {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  font-size: large;
+  color: white;
+  border-style: none;
+  cursor: pointer;
+  background-color: transparent;
+}
 ```
 
-`js-mute-button` — кнопка, которая выключает звук плеера. По нажатию перестаёт играть звук в плеере. Автоматически скрывается при выключении звука — тег получает атрибут [hidden](https://developer.mozilla.org/ru/docs/Web/HTML/%D0%9E%D0%B1%D1%89%D0%B8%D0%B5_%D0%B0%D1%82%D1%80%D0%B8%D0%B1%D1%83%D1%82%D1%8B/hidden).
+Панель управления имеет черный фон:
 
-`js-volume-button` — кнопка которая включает звук. По нажатию начинает играть звук в плеере. Автоматически скрывается при включении звука — тег получает атрибут [hidden](https://developer.mozilla.org/ru/docs/Web/HTML/%D0%9E%D0%B1%D1%89%D0%B8%D0%B5_%D0%B0%D1%82%D1%80%D0%B8%D0%B1%D1%83%D1%82%D1%8B/hidden). Чтобы кнопка не мерцала в момент загрузки страницы можно её вручную скрыть, добавив атрибут `hidden`:
-
-```html
-<button class="js-volume-button" hidden>Volume</button>
+```css
+.controls-panel {
+  display: flex;
+  background-color: black;
+}
 ```
 
-`js-fullscreen-button` — кнопка включает полноэкранный режим.
-
-`js-current-time` — внутри тега отобразится текущее время видеозаписи.
-
-`js-duration` — внутри тега отобразится общая продолжительность видеозаписи.
-
-`.js-progress` и `js-progress-slider` — комбинация из двух тегов для отображения ползунка видео-плеера. Он показывает какая часть видео была просмотрена и позволяет быстро промотать на интересный момент ролика. Нужны два тега, один внутри другого. Внешний тег отвечает за перетаскивание ползунка — перехватывает клики мышкой. Внутренний блок отображает прогресс — заполняет слайдер. Пример вёрстки:
-
-```html
-<div class="js-progress" style="background-color: grey;">
-  <div class="js-progress-slider" style="background-color: red;">Прогресс</div>
-</div>
-```
+Полный пример
+См. файл `index.html` для полного рабочего примера.
