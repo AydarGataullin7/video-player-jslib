@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="font-awesome.min.css" />
     <style>
       .controls-panel {
+        display: flex;
         background-color: black;
       }
       .buttons {
@@ -46,6 +47,10 @@
         </button>
         <button class="js-mute-button buttons" hidden>
           <i class="fa fa-volume-off" aria-hidden="true"></i>
+        </button>
+        <div style="flex-grow: 1"></div>
+        <button class="js-fullscreen-button buttons">
+          <i class="fa fa-expand" aria-hidden="true"></i>
         </button>
       </div>
     </div>
