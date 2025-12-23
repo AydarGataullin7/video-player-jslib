@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Демо видеоплеера</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="font-awesome.min.css" />
+    <style>
+      body {
+        padding: 20px;
+      }
+      h1 {
+        text-align: center;
+      }
+      .demo-info {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .player-wrapper {
+        margin: 0 auto;
+        max-width: 800px;
+      }
+      .controls-panel {
+        display: flex;
+        background-color: black;
+      }
+      .buttons {
+        width: 40px;
+        height: 40px;
+        margin: 5px;
+        font-size: large;
+        color: white;
+        border-style: none;
+        cursor: pointer;
+        background-color: transparent;
+      }
+      .video-container {
+        flex-grow: 1;
+      }
+      .player {
+        display: flex;
+        flex-direction: column;
+        width: 800px;
+        height: 600px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Демо видеоплеера</h1>
+    <div class="demo-info">
+      <p>Рабочий пример видеоплеера с элементами управления</p>
+    </div>
+
+    <div class="player-wrapper">
+      <div id="player" class="player">
+        <div class="js-video-container video-container"></div>
+        <div class="controls-panel">
+          <button class="js-play-button buttons">
+            <i class="fa fa-play button" aria-hidden="true"></i>
+          </button>
+          <button class="js-pause-button buttons" hidden>
+            <i class="fa fa-pause button" aria-hidden="true"></i>
+          </button>
+          <button class="js-volume-button buttons">
+            <i class="fa fa-volume-up" aria-hidden="true"></i>
+          </button>
+          <button class="js-mute-button buttons" hidden>
+            <i class="fa fa-volume-off" aria-hidden="true"></i>
+          </button>
+          <div style="flex-grow: 1"></div>
+          <button class="js-fullscreen-button buttons">
+            <i class="fa fa-expand" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://unpkg.com/playable@2.10.3/dist/statics/playable.bundle.min.js"></script>
+    <script src="player.js"></script>
+    <script type="text/javascript">
+      createPlayer({ elementId: "player" });
+    </script>
+  </body>
+</html>
