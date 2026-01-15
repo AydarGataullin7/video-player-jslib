@@ -21,17 +21,22 @@
       }
       .controls-panel {
         display: flex;
+        align-items: center;
         background-color: black;
+        justify-content: space-between;
       }
       .buttons {
-        width: 40px;
+        width: 35px;
         height: 40px;
-        margin: 5px;
-        font-size: large;
+        margin: 0.85px;
+        font-size: larger;
         color: white;
         border-style: none;
         cursor: pointer;
         background-color: transparent;
+      }
+      .buttons:focus {
+        outline: none;
       }
       .video-container {
         flex-grow: 1;
@@ -42,6 +47,46 @@
         width: 800px;
         height: 600px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+      }
+      .js-progress {
+        flex-grow: 1;
+        background-color: black;
+        height: 5px;
+        border-radius: 10px;
+        margin: 0 7px;
+      }
+      .js-progress-slider {
+        display: flex;
+        flex-grow: 1;
+        background-color: red;
+        height: 4px;
+        border-radius: 5px;
+        justify-content: flex-end;
+        align-items: center;
+        margin: 0 7px;
+      }
+      .dot {
+        opacity: 0;
+        margin-right: -5px;
+        flex-shrink: 0;
+        cursor: pointer;
+        height: 8px;
+        width: 8px;
+        background-color: red;
+        border-style: solid;
+        border-color: white;
+        border-radius: 50%;
+        display: inline-block;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        transition-property: all;
+        transition-duration: 0.3s;
+        transition-timing-function: linear;
+      }
+      .js-progress:hover .dot {
+        opacity: 1;
+        transition-property: all;
+        transition-duration: 0.3s;
+        transition-timing-function: linear;
       }
     </style>
   </head>
@@ -68,7 +113,11 @@
           <button class="js-mute-button buttons" hidden>
             <i class="fa fa-volume-off" aria-hidden="true"></i>
           </button>
-          <div style="flex-grow: 1"></div>
+
+          <div class="js-progress">
+            <div class="js-progress-slider"><span class="dot"></span></div>
+          </div>
+
           <button class="js-fullscreen-button buttons">
             <i class="fa fa-expand" aria-hidden="true"></i>
           </button>
