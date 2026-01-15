@@ -13,6 +13,7 @@
     <style>
       .controls-panel {
         display: flex;
+        align-items: center;
         background-color: black;
         justify-content: space-between;
       }
@@ -45,6 +46,35 @@
         display: flex;
         align-items: center;
       }
+      .js-progress {
+        flex-grow: 1;
+        background-color: black;
+        height: 5px;
+        border-radius: 10px;
+        margin: 0 7px;
+      }
+      .js-progress-slider {
+        display: flex;
+        flex-grow: 1;
+        background-color: red;
+        height: 4px;
+        border-radius: 5px;
+        justify-content: flex-end;
+        align-items: center;
+        margin: 0 7px;
+      }
+      .dot {
+        flex-shrink: 0;
+        cursor: pointer;
+        height: 8px;
+        width: 8px;
+        background-color: red;
+        border-style: solid;
+        border-color: white;
+        border-radius: 50%;
+        display: inline-block;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
     </style>
   </head>
 
@@ -65,12 +95,15 @@
           <button class="js-mute-button buttons" hidden>
             <i class="fa fa-volume-off" aria-hidden="true"></i>
           </button>
-          <div class="viewing-panel viewing-panel">
+          <div class="viewing-panel">
             <span class="js-current-time"></span>
           </div>
         </div>
+        <div class="js-progress">
+          <div class="js-progress-slider"><span class="dot"></span></div>
+        </div>
         <div class="right-buttons">
-          <div class="viewing-panel viewing-panel">
+          <div class="viewing-panel">
             <span class="js-duration"></span>
           </div>
           <button class="js-fullscreen-button buttons">
