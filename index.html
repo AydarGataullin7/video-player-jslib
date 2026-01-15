@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
     <title>Пример подключения плеера</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="font-awesome.min.css" />
@@ -8,6 +14,7 @@
       .controls-panel {
         display: flex;
         background-color: black;
+        justify-content: space-between;
       }
       .buttons {
         width: 35px;
@@ -29,6 +36,15 @@
         height: 600px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 1);
       }
+      .viewing-panel {
+        color: white;
+        font-family: "Roboto";
+      }
+      .left-buttons,
+      .right-buttons {
+        display: flex;
+        align-items: center;
+      }
     </style>
   </head>
 
@@ -36,22 +52,31 @@
     <div id="player" class="player">
       <div class="js-video-container video-container"></div>
       <div class="controls-panel">
-        <button class="js-play-button buttons">
-          <i class="fa fa-play button" aria-hidden="true"></i>
-        </button>
-        <button class="js-pause-button buttons" hidden>
-          <i class="fa fa-pause button" aria-hidden="true"></i>
-        </button>
-        <button class="js-volume-button buttons">
-          <i class="fa fa-volume-up" aria-hidden="true"></i>
-        </button>
-        <button class="js-mute-button buttons" hidden>
-          <i class="fa fa-volume-off" aria-hidden="true"></i>
-        </button>
-        <div style="flex-grow: 1"></div>
-        <button class="js-fullscreen-button buttons">
-          <i class="fa fa-expand" aria-hidden="true"></i>
-        </button>
+        <div class="left-buttons">
+          <button class="js-play-button buttons">
+            <i class="fa fa-play button" aria-hidden="true"></i>
+          </button>
+          <button class="js-pause-button buttons" hidden>
+            <i class="fa fa-pause button" aria-hidden="true"></i>
+          </button>
+          <button class="js-volume-button buttons">
+            <i class="fa fa-volume-up" aria-hidden="true"></i>
+          </button>
+          <button class="js-mute-button buttons" hidden>
+            <i class="fa fa-volume-off" aria-hidden="true"></i>
+          </button>
+          <div class="viewing-panel viewing-panel">
+            <span class="js-current-time"></span>
+          </div>
+        </div>
+        <div class="right-buttons">
+          <div class="viewing-panel viewing-panel">
+            <span class="js-duration"></span>
+          </div>
+          <button class="js-fullscreen-button buttons">
+            <i class="fa fa-expand" aria-hidden="true"></i>
+          </button>
+        </div>
       </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
